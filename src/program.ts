@@ -1,11 +1,6 @@
 import * as builder from "xmlbuilder"
-import { Layer } from "./Layer"
-
-// get the main xml template
-// replace {{{layers}}} with the elements made from the layers array
-
-// make one layer xml element and print it
-//let layersElements = layers.map(layer =>
+import { Layer } from "./layer"
+import { xmlTemplate } from "./xml-template"
 
 let makeLayer = function() : Layer {
   return {
@@ -13,7 +8,7 @@ let makeLayer = function() : Layer {
     "@opaque"          : 0,
     "Name"             : "EODIP:14March2016_80_4_NDVI",
     "Title"            : "14March2016_80_4_NDVI",
-    "Abstract"         : null,
+    "Abstract"         : "", //null,
     "KeywordList"      : {
       "Keyword" : [ "WCS", "GeooTIFF", "14March2016_80_4_NDVI" ]
     },
@@ -49,13 +44,32 @@ let makeLayer = function() : Layer {
   };
 }
 
+
+let makeLayerXmlElement = (layer : any) => {
+  // make an xmlbuilder node
+  let root = builder.create('root').ele("Layer", layer);
+  return root.ele('Layer', layer)
+    .toString({
+      pretty: true,
+      indent: '  ',
+      offset: 1,
+      newline: '\n'
+    }); // convert the child node to a string - this xmlbuilder library is very limited
+}
+
+// let xml = makeLayerXmlElement({foo:"bar"});
+// console.log(xml);
+
 let layers = [ makeLayer() ];
 
-let xml = builder.create('root')
-  .ele({Layer: layers})
-  .end({ pretty: true});
+// get the main xml template
+// replace "{{{layers}}}" with the elements made from the layers array
+let output = xmlTemplate.replace("{{{layers}}}", "");
 
+let layer = makeLayer();
+let xml = makeLayerXmlElement(layer);
 console.log(xml);
+
 
 
 
