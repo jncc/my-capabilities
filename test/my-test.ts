@@ -14,11 +14,6 @@ describe("spike", () => {
     three.should.equal(3);
   });
 
-  it("should equal 4", () => {
-    let four = 4;
-    four.should.equal(4);
-  });
-
 });
 
 describe("make-layer-xml", () => {
