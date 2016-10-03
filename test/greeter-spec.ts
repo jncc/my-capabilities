@@ -4,11 +4,11 @@
 import { Greeter } from "../src/greeter";
 import * as chai from "chai";
 
-const expect = chai.expect;
+const should = chai.should();
 
-describe("greeter", () => {
-  it("should greet with message", () => {
-    const greeter = new Greeter("friend");
-    expect(greeter.greet()).to.equal("Bonjour, friend!");
+describe("spike", () => {
+  it("should equal 3", () => {
+    let three = 3;
+    three.should.equal(3);
   });
 });

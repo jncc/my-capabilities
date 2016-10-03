@@ -1,5 +1,5 @@
 import * as builder from "xmlbuilder"
-import { Layer } from "./Layer"
+import { Layer } from "./layer"
 
 export class CapabilitiesGenerator {
 
