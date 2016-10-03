@@ -1,15 +1,15 @@
 
 
-import { Layer } from "./layer"
+import { ILayer } from "./layer"
 
-export default function makeResponse(layers: Layer[]): string {
+export function makeResponse(layers: ILayer[]): string {
 
   //let layersXml =
   return "";
 
 }
 
-function makeLayerXml(layer: Layer): string {
+export function makeLayerXml(layer: ILayer): string {
 
   let xml = `
       <Layer queryable="1" opaque="0">
