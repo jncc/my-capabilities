@@ -1,9 +1,13 @@
 {
   "name": "my-capabilities",
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "private": true,
   "description": "my-capabilities",
   "license": "OGL",
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jncc/my-capabilities.git"
+  },
   "author": "",
   "keywords": [
     ""
@@ -11,8 +15,6 @@
   "files": [
     "dist"
   ],
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
   "scripts": {
     "clean": "rimraf dist",
     "lint": "tslint --force --format verbose \"src/**/*.ts\"",

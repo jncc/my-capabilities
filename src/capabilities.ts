@@ -20,7 +20,7 @@ export function makeLayerXml(layer: ILayer): string {
       <Layer queryable="1" opaque="0">
         <Name>${layer.Name}</Name>
         <Title>${layer.Title}</Title>
-        <Abstract/>
+        <Abstract>${layer.Abstract == null ? "" : layer.Abstract}</Abstract>
         <KeywordList>
           <Keyword>WCS</Keyword>
           <Keyword>GeoTIFF</Keyword>

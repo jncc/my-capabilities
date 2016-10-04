@@ -4,7 +4,7 @@ export interface ILayer {
   // '@opaque': number;
   Name: string;
   Title: string;
-  // Abstract: string | null;
+  Abstract: string | null;
   // KeywordList: KeywordList;
   // SRS: string;
   // LatLonBoundingBox: LatLonBoundingBox;
