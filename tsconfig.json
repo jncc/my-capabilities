@@ -8,8 +8,8 @@
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "outDir": "./dist",
-    "pretty": true,
-    "removeComments": true
+    "removeComments": true,
+    "strictNullChecks": true
   },
   "include": [
     "src/**/*"

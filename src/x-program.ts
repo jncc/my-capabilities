@@ -43,7 +43,6 @@
 //   };
 // }
 
-
 // let makeLayerXmlElement = (layer : any) => {
 //   // make an xmlbuilder node
 //   let root = builder.create('root').ele("Layer", layer);
@@ -68,7 +67,3 @@
 // // let layer = makeLayer();
 // // let xml = makeLayerXmlElement(layer);
 // // console.log(xml);
-
-
-
-

@@ -1,5 +1,5 @@
 
-//import { ILayer } from "./layer"
+// import { ILayer } from "./layer"
 
 export class CapabilitiesGenerator {
 

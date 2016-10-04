@@ -1,3 +1,3 @@
-import { layers } from "./layers-demo-config"
+import { layers } from "./layers-demo-config";
 
 console.log(layers);

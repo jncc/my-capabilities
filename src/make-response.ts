@@ -1,6 +1,6 @@
 
 
-import { ILayer } from "./layer"
+import { ILayer } from "./layer";
 
 export function makeResponse(layers: ILayer[]): string {
 
