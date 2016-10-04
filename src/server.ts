@@ -4,7 +4,7 @@ import * as express from "express";
 import { layers } from "./demo";
 import { getCapabilities } from "./capabilities"
 
-const PORT = 8899;
+const PORT = 80;
 
 let app = express();
 
