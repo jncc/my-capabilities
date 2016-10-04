@@ -1,7 +1,7 @@
 
 /* tslint:disable */ // avoid warning "Exceeds maximum line length of 120"
 
-export const xmlTemplate: string = `
+export const template: string = `
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE WMT_MS_Capabilities SYSTEM "https://eodip.jncc.gov.uk:443/geoserver/schemas/wms/1.1.1/WMS_MS_Capabilities.dtd">
 <WMT_MS_Capabilities version="1.1.1" updateSequence="190">
@@ -6216,4 +6216,4 @@ export const xmlTemplate: string = `
     </Layer>
   </Capability>
 </WMT_MS_Capabilities>
-`;
+`.trim();

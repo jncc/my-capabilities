@@ -1,6 +1,8 @@
-// import { layers } from "./layers-demo-config";
 
 import * as express from "express";
+
+import { layers } from "./demo";
+import { getCapabilities } from "./capabilities"
 
 const PORT = 8899;
 
@@ -8,7 +10,8 @@ let app = express();
 
 app.get(`/`, (request, response) => {
   response.set(`Content-Type`, `text/xml`);
-  response.send(`<root><request>${request.url}</request></root>`);
+  let xml = getCapabilities(layers);
+  response.send(xml);
 });
 
 app.listen(PORT, () => {
