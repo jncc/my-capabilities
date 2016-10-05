@@ -1,0 +1,14 @@
+language: node_js
+
+node_js:
+  - 4.2.3
+
+build:
+  ci:
+    - npm install
+    - npm run test
+
+post_ci:
+    - ls -a
+    - pwd
+
