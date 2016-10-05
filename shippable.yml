@@ -7,10 +7,6 @@ build:
   ci:
     - npm install
     - npm run test # runs (depends on) npm run build
+  post_ci:
     - ls -a
     - pwd
-
-post_ci:
-    - ls -a
-    - pwd
-
