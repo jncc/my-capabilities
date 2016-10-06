@@ -5,11 +5,15 @@ import { makeLayerXml } from "../src/capabilities";
 
 describe("spike", () => {
 
-  it("should equal 3", () => {
+  it("3 should equal 3", () => {
     let three = 3;
     expect(three).to.equal(3);
   });
 
+  it("4 should equal 4", () => {
+    let four = 4;
+    expect(four).to.equal(4);
+  });
 });
 
 describe("make-layer-xml", () => {
@@ -24,5 +28,4 @@ describe("make-layer-xml", () => {
     expect(result).to.have.string("<Name>Some layer</Name>")
     console.log(result);
   });
-
 });
