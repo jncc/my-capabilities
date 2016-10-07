@@ -9,6 +9,11 @@ export const layers = [
     "Name": "Layer 2",
     "Title": "Title 2",
     "Abstract": null,
+  },
+  {
+    "Name": "Layer 3",
+    "Title": "Title 3",
+    "Abstract": "This is the abstract for Layer 3. It's very nice.",
   }
 ];
 
