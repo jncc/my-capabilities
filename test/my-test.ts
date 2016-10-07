@@ -22,10 +22,10 @@ describe("make-layer-xml", () => {
     let layer = {
       Name: "Some layer",
       Title: "Some layer title",
-      Abstract: null
+      Abstract: null,
     };
     let result = makeLayerXml(layer);
     expect(result).to.have.string("<Name>Some layer</Name>")
-    console.log(result);
+    // console.log(result);
   });
 });

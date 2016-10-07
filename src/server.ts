@@ -2,7 +2,7 @@
 import * as express from "express";
 
 import { layers } from "./demo";
-import { getCapabilities } from "./capabilities"
+import { getCapabilities } from "./capabilities";
 
 const PORT = 80;
 
