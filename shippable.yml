@@ -1,3 +1,4 @@
+
 language: node_js
 
 node_js:
@@ -5,8 +6,30 @@ node_js:
 
 build:
   ci:
+    - echo 'CI is running'
     - npm install
-    - npm run test # runs (depends on) npm run build
+    - npm run test # first runs / depends on 'npm run build'
+
   post_ci:
     - ls -a
     - pwd
+    # DockerHub
+    - docker build -t="sumothecat/my-capabilities:$BRANCH.$BUILD_NUMBER" .
+    - docker push sumothecat/my-capabilities:$BRANCH.$BUILD_NUMBER
+    # Addresses botocore version mismatch errors
+    - pip install --upgrade botocore
+
+integrations:
+  deploy:
+    # AWS Integration to deploy Docker image
+    - integrationName: "aws-integration-sample-eb"
+      type: aws
+      application_name: "my-capabilities-app"
+      env_name: "my-capabilities-app-dev"
+      region: "eu-west-1"
+      image_name: "sumothecat/my-capabilities"
+      image_tag: "$BRANCH.$BUILD_NUMBER"
+
+  hub:
+    - integrationName: "docker-integration-sample-eb"
+      type: docker

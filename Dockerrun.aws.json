@@ -1,0 +1,14 @@
+{
+"AWSEBDockerrunVersion": "1",
+"Image": {
+  "Name": "sumothecat/my-capabilities:nativeEBDeployment",
+  "Update": "true"
+},
+"Ports": [
+  {
+    "ContainerPort": "80"
+  }
+],
+"Volumes": [
+  ]
+}
