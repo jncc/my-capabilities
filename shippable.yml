@@ -22,7 +22,7 @@ build:
 integrations:
   deploy:
     # AWS Integration to deploy Docker image
-    - integrationName: "aws-integration-sample-eb"
+    - integrationName: "aws-integration-my-capabilities"
       type: aws
       application_name: "my-capabilities-app"
       env_name: "my-capabilities-app-dev"
@@ -31,5 +31,5 @@ integrations:
       image_tag: "$BRANCH.$BUILD_NUMBER"
 
   hub:
-    - integrationName: "docker-integration-sample-eb"
+    - integrationName: "docker-integration-my-capabilities"
       type: docker
