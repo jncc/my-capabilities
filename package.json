@@ -31,13 +31,16 @@
     "@types/chai-string": "^1.1.30",
     "@types/express": "^4.0.33",
     "@types/mocha": "2.2.29",
-    "@types/node": "6.0.31",
+    "@types/node": "^6.0.31",
+    "@types/turf": "^3.5.32",
     "chai": "^3.5.0",
     "chai-string": "^1.2.0",
+    "fs": "0.0.1-security",
     "mocha": "^3.0.1",
     "rimraf": "^2.5.4",
     "ts-node": "^1.2.2",
     "tslint": "3.15.1",
+    "turf": "^3.0.14",
     "typescript": "2.0.3"
   },
   "engines": {
