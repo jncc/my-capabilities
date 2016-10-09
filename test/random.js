@@ -17,4 +17,16 @@ function generateRandomScenePolygons() {
     fs.writeFileSync("delete.json", output);
 }
 ;
-generateRandomScenePolygons();
+var Query = (function () {
+    function Query() {
+    }
+    return Query;
+}());
+function getResources(query) {
+    var northernBbox = turf.bboxPolygon([-5, 52, 2.021, 57]);
+    //let northernScenes = scenes.features.filter((f => turf.intersect(f as GeoJSON.Feature<GeoJSON.Polygon>, northernBbox)));
+    //let output = JSON.stringify(northernScenes);
+    //fs.writeFileSync(`delete.json`, output);
+    return new Query();
+}
+getResources(new Query());
