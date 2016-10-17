@@ -8,13 +8,14 @@ const PORT = 80;
 
 let app = express();
 
-app.use(express.static(''));
 
-app.get(`/`, (request, response) => {
+app.get(`/xml`, (request, response) => {
   response.set(`Content-Type`, `text/xml`);
   let xml = getCapabilities(layers);
   response.send(xml);
 });
+
+app.use(express.static(''));
 
 app.listen(PORT, () => {
     console.log(`Server listening on: http://localhost:${PORT}`);

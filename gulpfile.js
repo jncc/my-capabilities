@@ -176,18 +176,18 @@ gulp.task('serve:test', ['scripts'], () => {
 
 // inject bower components
 gulp.task('wiredep', () => {
-  gulp.src('src/styles/*.scss')
-    .pipe(wiredep({
-      ignorePath: /^(\.\.\/)+/
-    }))
-    .pipe(gulp.dest('src/styles'));
+  // gulp.src('src/styles/*.scss')
+  //   .pipe(wiredep({
+  //     ignorePath: /^(\.\.\/)+/
+  //   }))
+  //   .pipe(gulp.dest('src/styles'));
 
-  gulp.src('src/*.html')
-    .pipe(wiredep({
-      exclude: ['bootstrap-sass'],
-      ignorePath: /^(\.\.\/)*\.\./
-    }))
-    .pipe(gulp.dest('src'));
+  // gulp.src('src/*.html')
+  //   .pipe(wiredep({
+  //     exclude: ['bootstrap-sass'],
+  //     ignorePath: /^(\.\.\/)*\.\./
+  //   }))
+  //   .pipe(gulp.dest('src'));
 });
 
 gulp.task('build', ['lint', 'html', 'images', 'fonts', 'extras'], () => {
