@@ -8,6 +8,8 @@ const PORT = 80;
 
 let app = express();
 
+app.use(express.static(''));
+
 app.get(`/`, (request, response) => {
   response.set(`Content-Type`, `text/xml`);
   let xml = getCapabilities(layers);

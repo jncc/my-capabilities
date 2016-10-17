@@ -1,19 +1,16 @@
 {
   "version": "0.1.0",
-  "command": "npm",
+  "command": "gulp",
   "isShellCommand": true,
-  "args": ["run"],
+  "args": [""],
   "showOutput": "always",
   "tasks": [
-    {
-      "taskName": "build",
-      "isBuildCommand": true
-    },
     {
       "taskName": "clean"
     },
     {
-      "taskName": "lint"
+      "taskName": "build",
+      "isBuildCommand": true
     },
     {
       "taskName": "test",

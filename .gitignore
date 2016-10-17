@@ -1,8 +1,9 @@
 node_modules/
 npm-debug.log
 
-coverage/ # what is this for?
-dist/
+# build output folders
+.tmp
+dist
 
 # Elastic Beanstalk
 .elasticbeanstalk/*
