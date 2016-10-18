@@ -2,7 +2,7 @@
 language: node_js
 
 node_js:
-  - 4.2.3
+  - 4.2.3 # not sure why i used an old node.js - todo update to v6 / latest
 
 build:
   ci:

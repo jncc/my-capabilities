@@ -44,7 +44,7 @@ gulp.task('default', function () {
 });
 
 gulp.task('scripts', () => {
-  return gulp.src('src/**/*.ts')
+  return gulp.src('app.server/**/*.ts')
     .pipe($.plumber())
 // .pipe($.sourcemaps.init())
     .pipe($.typescript({ // changes to typescript options also need to be make in tsconfig for code editor
@@ -58,7 +58,7 @@ gulp.task('scripts', () => {
       "removeComments": true,
       "strictNullChecks": true    }))
 // .pipe($.sourcemaps.write('.'))
-   .pipe(gulp.dest('.tmp/scripts'))
+   .pipe(gulp.dest('.tmp/app.server'))
 // .pipe(reload({stream: true}));
 });
 
