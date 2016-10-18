@@ -7,12 +7,14 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
-    "outDir": "./dist",
+    "outDir": "./built",
+    "rootDir": ".",
     "removeComments": true,
     "strictNullChecks": true
   },
   "include": [
-    "src/**/*"
+    "app.server/**/*",
+    "app.client/**/*"
   ],
   "exclude": [
     "node_modules"

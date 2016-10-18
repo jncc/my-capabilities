@@ -43,23 +43,31 @@ gulp.task('default', function () {
         .pipe(gulp.dest('built/local'));
 });
 
-gulp.task('scripts', () => {
-  return gulp.src('app.server/**/*.ts')
-    .pipe($.plumber())
-// .pipe($.sourcemaps.init())
-    .pipe($.typescript({ // changes to typescript options also need to be make in tsconfig for code editor
-      "module": "commonjs",
-      "moduleResolution": "node",
-      "noFallthroughCasesInSwitch": true,
-      "noImplicitAny": true,
-      "noImplicitReturns": true,
-      "noImplicitThis": true,
-      "noUnusedLocals": true,
-      "removeComments": true,
-      "strictNullChecks": true    }))
-// .pipe($.sourcemaps.write('.'))
-   .pipe(gulp.dest('.tmp/app.server'))
-// .pipe(reload({stream: true}));
+gulp.task('server', () => {
+
+  let tsProject = $.typescript.createProject('tsconfig.json');
+
+  let tsResult = tsProject.src() // instead of gulp.src(...)
+      .pipe(tsProject());
+
+  return tsResult.js.pipe(gulp.dest('built'));
+
+//   return gulp.src('app.server/**/*.ts')
+//     .pipe($.plumber())
+// // .pipe($.sourcemaps.init())
+//     .pipe($.typescript({ // changes to typescript options also need to be make in tsconfig for code editor
+//       "module": "commonjs",
+//       "moduleResolution": "node",
+//       "noFallthroughCasesInSwitch": true,
+//       "noImplicitAny": true,
+//       "noImplicitReturns": true,
+//       "noImplicitThis": true,
+//       "noUnusedLocals": true,
+//       "removeComments": true,
+//       "strictNullChecks": true    }))
+// // .pipe($.sourcemaps.write('.'))
+//    .pipe(gulp.dest('.tmp/app.server'))
+// // .pipe(reload({stream: true}));
 });
 
 function lint(files, options) {
@@ -117,7 +125,7 @@ gulp.task('extras', () => {
   }).pipe(gulp.dest('dist'));
 });
 
-gulp.task('clean', del.bind(null, ['.tmp', 'dist']));
+gulp.task('clean', del.bind(null, ['.tmp', 'dist', 'built']));
 
 gulp.task('serve', () => {
   runSequence(['clean', 'wiredep'], ['styles', 'scripts', 'fonts'], () => {

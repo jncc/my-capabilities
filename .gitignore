@@ -3,7 +3,7 @@ npm-debug.log
 
 # build output folders
 .tmp
-dist
+built
 
 # Elastic Beanstalk
 .elasticbeanstalk/*
