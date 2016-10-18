@@ -15,7 +15,7 @@ app.get(`/xml`, (request, response) => {
   response.send(xml);
 });
 
-app.use(express.static(''));
+//app.use(express.static(''));
 
 app.listen(PORT, () => {
     console.log(`Server listening on: http://localhost:${PORT}`);
