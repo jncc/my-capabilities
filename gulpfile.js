@@ -21,8 +21,8 @@ gulp.task('server-scripts', () => {
     .pipe($.sourcemaps.init())
     .pipe(tsProject()).js
     .pipe($.sourcemaps.write('.'))
-    .pipe(gulp.dest('.tmp'));
-    // .pipe(reload({stream: true}));
+    .pipe(gulp.dest('.tmp'))
+    .pipe(reload({stream: true}));
 });
 
 gulp.task('scripts', () => {
@@ -108,42 +108,43 @@ gulp.task('extras', () => {
 
 gulp.task('clean', del.bind(null, ['.tmp', 'dist', 'built']));
 
-gulp.task('nodemon', (cb) => {
-
-  var started = false;
-  return $.nodemon({ script: '.tmp/app.server/server.js' })
-    .on('start', () => {
-      // to avoid nodemon being started multiple times
-      if (!started) {
-        cb();
-        started = true;
-      }
-    });
-});
-
 gulp.task('serve', () => {
 
   // run the second set of tasks when the first set is finished
-  runSequence(['clean', 'wiredep', 'server-scripts'], ['nodemon', 'styles', 'scripts', 'fonts'], () => {
+  runSequence(['clean', 'wiredep', 'server-scripts'], ['styles', 'scripts', 'fonts'], () => {
 
-    browserSync({
-      port: 9000,
-      proxy: "http://localhost:5000", // proxy for app.server
-      serveStatic: ['.tmp/app.client', 'app.client']
+    var started = false;
+
+    // use nodemon to run app.server
+    $.nodemon({
+      script: '.tmp/app.server/server.js',
+      ext: 'js',
+      watch:    ['.tmp/app.server'],
+      delay: 100
+    }).on('start', () => {
+      // use browserSync to run app.client
+      if (!started) {
+        browserSync({
+          port: 9000,
+          proxy: "http://localhost:5000", // proxy for app.server
+          serveStatic: ['.tmp/app.client', 'app.client']
+        });
+      }
+      started = true;
     });
 
+    gulp.watch('app.server/*.*', ['server-scripts']);
     gulp.watch([
-      'app.server/*.*',
       'app.client/*.html',
       'app.client/images/**/*',
-      '.tmp/fonts/**/*'
+      '.tmp/app.client/fonts/**/*'
     ]).on('change', reload);
     gulp.watch('app.client/styles/**/*.scss', ['styles']);
-    gulp.watch('app.client/scripts/**/*.js', ['scripts']);
+    gulp.watch('app.client/scripts/**/*.ts', ['scripts']);
     gulp.watch('app.client/fonts/**/*', ['fonts']);
-    gulp.watch('bower.json', ['wiredep', 'fonts']);
   });
 });
+
 
 // gulp.task('serve:dist', () => {
 //   browserSync({
