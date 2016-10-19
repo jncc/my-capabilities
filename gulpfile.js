@@ -1,3 +1,4 @@
+"use strict";
 
 const gulp = require('gulp');
 const gulpLoadPlugins = require('gulp-load-plugins');
@@ -46,28 +47,14 @@ gulp.task('default', function () {
 gulp.task('server', () => {
 
   let tsProject = $.typescript.createProject('tsconfig.json');
-
-  let tsResult = tsProject.src() // instead of gulp.src(...)
-      .pipe(tsProject());
-
-  return tsResult.js.pipe(gulp.dest('built'));
-
-//   return gulp.src('app.server/**/*.ts')
-//     .pipe($.plumber())
-// // .pipe($.sourcemaps.init())
-//     .pipe($.typescript({ // changes to typescript options also need to be make in tsconfig for code editor
-//       "module": "commonjs",
-//       "moduleResolution": "node",
-//       "noFallthroughCasesInSwitch": true,
-//       "noImplicitAny": true,
-//       "noImplicitReturns": true,
-//       "noImplicitThis": true,
-//       "noUnusedLocals": true,
-//       "removeComments": true,
-//       "strictNullChecks": true    }))
-// // .pipe($.sourcemaps.write('.'))
-//    .pipe(gulp.dest('.tmp/app.server'))
-// // .pipe(reload({stream: true}));
+  return tsProject.src() // instead of gulp.src()
+    //.pipe($.plumber())
+    .pipe($.sourcemaps.init())
+    .pipe(tsProject())
+    .js
+    .pipe($.sourcemaps.write('.'))
+    .pipe(gulp.dest('.tmp'));
+    // .pipe(reload({stream: true}));
 });
 
 function lint(files, options) {

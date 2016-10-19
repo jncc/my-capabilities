@@ -10,6 +10,7 @@
     "outDir": "./built",
     "rootDir": ".",
     "removeComments": true,
+    "sourceMap": true,
     "strictNullChecks": true
   },
   "include": [
