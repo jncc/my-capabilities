@@ -7,16 +7,12 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
-    "outDir": "./built",
+    "outDir": "./tsc", // if ever accidentally built with tsc directly
     "rootDir": ".",
     "removeComments": true,
     "sourceMap": true,
     "strictNullChecks": true
   },
-  "include": [
-    "app.server/**/*",
-    "app.client/**/*"
-  ],
   "exclude": [
     "node_modules"
   ]

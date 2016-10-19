@@ -1,6 +1,6 @@
 {
   "name": "my-capabilities",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "private": true,
   "description": "my-capabilities",
   "license": "OGL",
@@ -8,21 +8,10 @@
     "type": "git",
     "url": "git://github.com/jncc/my-capabilities.git"
   },
-  "author": "",
-  "keywords": [
-    ""
-  ],
-  "files": [
-    "dist"
-  ],
   "scripts": {
-    "clean": "rimraf dist",
-    "lint": "tslint --force --format verbose \"src/**/*.ts\"",
-    "html": "find ./src -name '*.html' -type f -exec cp --parents {} ./dist \\;",
-    "build": "npm run clean && npm run lint && echo Using TypeScript && tsc --version && tsc --pretty",
-    "build:watch": "npm run build -- --watch",
-    "test": "npm run build && mocha --compilers ts:ts-node/register --recursive test/**/*.ts",
-    "test:watch": "npm run test -- --watch"
+    "clean": "gulp clean",
+    "build": "gulp build",
+    "test": "gulp test"
   },
   "dependencies": {
     "express": "^4.14.0"
@@ -65,7 +54,7 @@
     "ts-node": "^1.2.2",
     "tslint": "3.15.1",
     "typescript": "2.0.3",
-    "wiredep": "^4.0.0"
+    "webpack-stream": "^3.2.0"
   },
   "engines": {
     "node": ">=4.0.0"

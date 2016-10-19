@@ -1,7 +1,7 @@
 /// <reference path="../node_modules/@types/mocha/index.d.ts" />
 
 import { expect } from "chai";
-import { makeLayerXml } from "../src/capabilities";
+import { makeLayerXml } from "../app.server/capabilities";
 
 describe("spike", () => {
 

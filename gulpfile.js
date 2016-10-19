@@ -2,38 +2,35 @@
 
 const gulp = require('gulp');
 const gulpLoadPlugins = require('gulp-load-plugins');
-const browserSync = require('browser-sync');
 const del = require('del');
-const wiredep = require('wiredep').stream;
+const webpack = require('webpack-stream');
+const browserSync = require('browser-sync');
 const runSequence = require('run-sequence');
 
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
 
-// the server-scripts task compiles the app.server code
-// all the remaining tasks deal with building app.client
-
-gulp.task('server-scripts', () => {
+function typescript(include) {
   // use the tsconfig.json typescript compiler configuration instead of gulp.src()
+  // so we have the same typescript options within our code editor
   let tsProject = $.typescript.createProject('tsconfig.json');
+  tsProject.config.include = include;
   return tsProject.src()
-    //.pipe($.plumber())
     .pipe($.sourcemaps.init())
     .pipe(tsProject()).js
     .pipe($.sourcemaps.write('.'))
     .pipe(gulp.dest('.tmp'))
     .pipe(reload({stream: true}));
+}
+
+gulp.task('server-scripts', () => {
+  return typescript(['app.server/**/*']);
 });
 
 gulp.task('scripts', () => {
-
-  return gulp.src('src/scripts/**/*.js')
-    .pipe($.plumber())
-    .pipe($.sourcemaps.init())
-    .pipe($.babel())
-    .pipe($.sourcemaps.write('.'))
-    .pipe(gulp.dest('.tmp/scripts'))
-    .pipe(reload({stream: true}));
+return typescript(['app.client/**/*'])
+    .pipe($.if('*.js', webpack( require('./app.client/webpack.config.js') )))
+    .pipe(gulp.dest('.tmp/app.client'));
 });
 
 gulp.task('styles', () => {
@@ -49,30 +46,6 @@ gulp.task('styles', () => {
     .pipe($.sourcemaps.write())
     .pipe(gulp.dest('.tmp/app.client/styles'))
     .pipe(reload({stream: true}));
-});
-
-function lint(files, options) {
-  return gulp.src(files)
-    .pipe(reload({stream: true, once: true}))
-    .pipe($.eslint(options))
-    .pipe($.eslint.format())
-    .pipe($.if(!browserSync.active, $.eslint.failAfterError()));
-}
-
-gulp.task('lint', () => {
-  return lint('src/scripts/**/*.js', {
-    fix: true
-  })
-    .pipe(gulp.dest('src/scripts'));
-});
-gulp.task('lint:test', () => {
-  return lint('test/spec/**/*.js', {
-    fix: true,
-    env: {
-      mocha: true
-    }
-  })
-    .pipe(gulp.dest('test/spec'));
 });
 
 gulp.task('html', ['styles', 'scripts'], () => {
@@ -97,6 +70,7 @@ gulp.task('fonts', () => {
     .pipe(gulp.dest('dist/fonts'));
 });
 
+// puts everything that's not html into dist?
 gulp.task('extras', () => {
   return gulp.src([
     'src/*',
@@ -106,27 +80,27 @@ gulp.task('extras', () => {
   }).pipe(gulp.dest('dist'));
 });
 
-gulp.task('clean', del.bind(null, ['.tmp', 'dist', 'built']));
+gulp.task('clean', del.bind(null, ['.tmp', 'built']));
 
 gulp.task('serve', () => {
 
-  // run the second set of tasks when the first set is finished
-  runSequence(['clean', 'wiredep', 'server-scripts'], ['styles', 'scripts', 'fonts'], () => {
+  // run the second set of tasks when the first set is finished, then...
+  runSequence(['clean', 'server-scripts'], ['styles', 'scripts', 'fonts'], () => {
 
     var started = false;
 
     // use nodemon to run app.server
     $.nodemon({
       script: '.tmp/app.server/server.js',
-      ext: 'js',
-      watch:    ['.tmp/app.server'],
-      delay: 100
+      watch:  ['.tmp/app.server'],
+      ext:    'js',
+      delay:  100
     }).on('start', () => {
       // use browserSync to run app.client
       if (!started) {
         browserSync({
-          port: 9000,
-          proxy: "http://localhost:5000", // proxy for app.server
+          port:        9000,
+          proxy:       "http://localhost:5000", // proxy for app.server
           serveStatic: ['.tmp/app.client', 'app.client']
         });
       }
@@ -175,26 +149,12 @@ gulp.task('serve', () => {
 //   gulp.watch('test/spec/**/*.js', ['lint:test']);
 // });
 
-// inject bower components
-gulp.task('wiredep', () => {
-  // gulp.src('src/styles/*.scss')
-  //   .pipe(wiredep({
-  //     ignorePath: /^(\.\.\/)+/
-  //   }))
-  //   .pipe(gulp.dest('src/styles'));
 
-  // gulp.src('src/*.html')
-  //   .pipe(wiredep({
-  //     exclude: ['bootstrap-sass'],
-  //     ignorePath: /^(\.\.\/)*\.\./
-  //   }))
-  //   .pipe(gulp.dest('src'));
-});
 
-gulp.task('build', ['server-scripts', 'lint', 'html', 'images', 'fonts', 'extras'], () => {
+gulp.task('build', ['server-scripts', 'scripts', 'html', 'images', 'fonts', 'extras'], () => {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 
 gulp.task('default', () => {
-  runSequence(['clean', 'wiredep'], 'build');
+  runSequence(['clean'], 'build');
 });
