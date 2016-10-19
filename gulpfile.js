@@ -10,8 +10,34 @@ const runSequence = require('run-sequence');
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
 
+// the server-scripts task compiles the app.server code
+// all the remaining tasks deal with building app.client
+
+gulp.task('server-scripts', () => {
+  // use the tsconfig.json typescript compiler configuration instead of gulp.src()
+  let tsProject = $.typescript.createProject('tsconfig.json');
+  return tsProject.src()
+    //.pipe($.plumber())
+    .pipe($.sourcemaps.init())
+    .pipe(tsProject()).js
+    .pipe($.sourcemaps.write('.'))
+    .pipe(gulp.dest('.tmp'));
+    // .pipe(reload({stream: true}));
+});
+
+gulp.task('scripts', () => {
+
+  return gulp.src('src/scripts/**/*.js')
+    .pipe($.plumber())
+    .pipe($.sourcemaps.init())
+    .pipe($.babel())
+    .pipe($.sourcemaps.write('.'))
+    .pipe(gulp.dest('.tmp/scripts'))
+    .pipe(reload({stream: true}));
+});
+
 gulp.task('styles', () => {
-  return gulp.src('src/styles/*.scss')
+  return gulp.src('app.client/styles/*.scss')
     .pipe($.plumber())
     .pipe($.sourcemaps.init())
     .pipe($.sass.sync({
@@ -21,40 +47,8 @@ gulp.task('styles', () => {
     }).on('error', $.sass.logError))
     .pipe($.autoprefixer({browsers: ['> 1%', 'last 2 versions', 'Firefox ESR']}))
     .pipe($.sourcemaps.write())
-    .pipe(gulp.dest('.tmp/styles'))
+    .pipe(gulp.dest('.tmp/app.client/styles'))
     .pipe(reload({stream: true}));
-});
-
-// gulp.task('scripts', () => {
-//   return gulp.src('src/scripts/**/*.js')
-//     .pipe($.plumber())
-//     .pipe($.sourcemaps.init())
-//     .pipe($.babel())
-//     .pipe($.sourcemaps.write('.'))
-//     .pipe(gulp.dest('.tmp/scripts'))
-//     .pipe(reload({stream: true}));
-// });
-
-gulp.task('default', function () {
-    return gulp.src('src/**/*.ts')
-        .pipe(ts({
-            noImplicitAny: true,
-            out: 'output.js'
-        }))
-        .pipe(gulp.dest('built/local'));
-});
-
-gulp.task('server', () => {
-
-  let tsProject = $.typescript.createProject('tsconfig.json');
-  return tsProject.src() // instead of gulp.src()
-    //.pipe($.plumber())
-    .pipe($.sourcemaps.init())
-    .pipe(tsProject())
-    .js
-    .pipe($.sourcemaps.write('.'))
-    .pipe(gulp.dest('.tmp'));
-    // .pipe(reload({stream: true}));
 });
 
 function lint(files, options) {
@@ -114,60 +108,71 @@ gulp.task('extras', () => {
 
 gulp.task('clean', del.bind(null, ['.tmp', 'dist', 'built']));
 
-gulp.task('serve', () => {
-  runSequence(['clean', 'wiredep'], ['styles', 'scripts', 'fonts'], () => {
-    browserSync({
-      notify: false,
-      port: 9000,
-      server: {
-        baseDir: ['.tmp', 'src'],
-        routes: {
-          '/bower_components': 'bower_components'
-        }
+gulp.task('nodemon', (cb) => {
+
+  var started = false;
+  return $.nodemon({ script: '.tmp/app.server/server.js' })
+    .on('start', () => {
+      // to avoid nodemon being started multiple times
+      if (!started) {
+        cb();
+        started = true;
       }
+    });
+});
+
+gulp.task('serve', () => {
+
+  // run the second set of tasks when the first set is finished
+  runSequence(['clean', 'wiredep', 'server-scripts'], ['nodemon', 'styles', 'scripts', 'fonts'], () => {
+
+    browserSync({
+      port: 9000,
+      proxy: "http://localhost:5000", // proxy for app.server
+      serveStatic: ['.tmp/app.client', 'app.client']
     });
 
     gulp.watch([
-      'src/*.html',
-        'src/images/**/*',
+      'app.server/*.*',
+      'app.client/*.html',
+      'app.client/images/**/*',
       '.tmp/fonts/**/*'
     ]).on('change', reload);
-
-    gulp.watch('src/styles/**/*.scss', ['styles']);
-      gulp.watch('src/scripts/**/*.js', ['scripts']);
-      gulp.watch('src/fonts/**/*', ['fonts']);
+    gulp.watch('app.client/styles/**/*.scss', ['styles']);
+    gulp.watch('app.client/scripts/**/*.js', ['scripts']);
+    gulp.watch('app.client/fonts/**/*', ['fonts']);
     gulp.watch('bower.json', ['wiredep', 'fonts']);
   });
 });
 
-gulp.task('serve:dist', () => {
-  browserSync({
-    notify: false,
-    port: 9000,
-    server: {
-      baseDir: ['dist']
-    }
-  });
-});
+// gulp.task('serve:dist', () => {
+//   browserSync({
+//     notify: false,
+//     port: 9000,
+//     server: {
+//       baseDir: ['dist']
+//     }
+//   });
+// });
 
-gulp.task('serve:test', ['scripts'], () => {
-  browserSync({
-    notify: false,
-    port: 9000,
-    ui: false,
-    server: {
-      baseDir: 'test',
-      routes: {
-        '/scripts': '.tmp/scripts',
-        '/bower_components': 'bower_components'
-      }
-    }
-  });
+// gulp.task('serve:test', ['scripts'], () => {
+//   browserSync({
+//     notify: false,
+//     port: 9000,
+//     ui: false,
+//     server: {
+//       baseDir: 'test',
+//       routes: {
+//         '/scripts': '.tmp/scripts',
+//         '/bower_components': 'bower_components'
+//       }
+//     }
+//   });
 
-  gulp.watch('src/scripts/**/*.js', ['scripts']);
-  gulp.watch(['test/spec/**/*.js', 'test/index.html']).on('change', reload);
-  gulp.watch('test/spec/**/*.js', ['lint:test']);
-});
+//   gulp.watch('src/scripts/**/*.js', ['scripts']);
+//   gulp.watch(['test/spec/**/*.js', 'test/index.html']).on('change', reload);
+//   gulp.watch('test/spec/**/*.js', ['lint:test']);
+// });
 
 // inject bower components
 gulp.task('wiredep', () => {
@@ -185,7 +190,7 @@ gulp.task('wiredep', () => {
   //   .pipe(gulp.dest('src'));
 });
 
-gulp.task('build', ['lint', 'html', 'images', 'fonts', 'extras'], () => {
+gulp.task('build', ['server-scripts', 'lint', 'html', 'images', 'fonts', 'extras'], () => {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 

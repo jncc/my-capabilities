@@ -4,10 +4,9 @@ import * as express from "express";
 import { layers } from "./demo";
 import { getCapabilities } from "./capabilities";
 
-const PORT = 80;
-
 let app = express();
-
+let env = app.settings.env;
+let port = env === 'development' ? 5000 : 80;
 
 app.get(`/xml`, (request, response) => {
   response.set(`Content-Type`, `text/xml`);
@@ -15,8 +14,10 @@ app.get(`/xml`, (request, response) => {
   response.send(xml);
 });
 
-app.use(express.static(''));
+// serve static files from the following directory
+app.use(express.static('app.client'));
 
-app.listen(PORT, () => {
-    console.log(`Server listening on: http://localhost:${PORT}`);
+// start the express web server
+app.listen(port, () => {
+    console.log(`app.server listening on: http://localhost:${port}`);
 });
