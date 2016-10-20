@@ -9,7 +9,7 @@
     "url": "git://github.com/jncc/my-capabilities.git"
   },
   "scripts": {
-    "build": "gulp"
+    "build": "gulp build"
   },
   "dependencies": {
     "dotenv": "^2.0.0",
