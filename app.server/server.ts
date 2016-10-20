@@ -1,6 +1,5 @@
 
 import * as express from "express";
-
 import { layers } from "./demo";
 import { getCapabilities } from "./capabilities";
 
@@ -20,4 +19,5 @@ app.use(express.static('app.client'));
 // start the express web server
 app.listen(port, () => {
     console.log(`app.server listening on: http://localhost:${port}`);
+    console.log(`node environment is ${env}`);
 });

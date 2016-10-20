@@ -1,3 +1,7 @@
+
+# node environement variable file
+.env
+
 node_modules/
 npm-debug.log
 

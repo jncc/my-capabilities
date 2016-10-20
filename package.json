@@ -9,11 +9,10 @@
     "url": "git://github.com/jncc/my-capabilities.git"
   },
   "scripts": {
-    "clean": "gulp clean",
-    "build": "gulp build",
-    "test": "gulp test"
+    "build": "gulp"
   },
   "dependencies": {
+    "dotenv": "^2.0.0",
     "express": "^4.14.0"
   },
   "devDependencies": {
