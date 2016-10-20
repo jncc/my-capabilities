@@ -6,9 +6,8 @@ node_js:
 
 build:
   ci:
-    - echo 'CI is running'
     - npm install
-    - npm run test # first runs / depends on 'npm run build'
+    - gulp # todo: run tests too
 
   post_ci:
     - ls -a
