@@ -15,7 +15,7 @@ export class TemperatureInput extends React.Component<TemperatureInputProps, {}>
           <label className="sr-only">{label}</label>
           <div className="input-group">
             <input type="text" className="form-control" value={this.props.value} onChange={this.handleChange.bind(this)} placeholder={label} />
-            <div className="input-group-addon">{this.props.scale}</div>
+            <div className="input-group-addon">&deg;{this.props.scale.charAt(0)}</div>
           </div>
         </div>
       </form>

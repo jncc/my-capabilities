@@ -2,14 +2,14 @@
 # node environement variable file
 .env
 
+# npm
 node_modules/
 npm-debug.log
 
-# build output folders
-.tmp
-built
+# build output
+built/
 
-# Elastic Beanstalk
+# elastic beanstalk
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
