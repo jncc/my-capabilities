@@ -1,8 +1,15 @@
 
 language: node_js
 
+# not sure why i used an old node.js - todo update to v6 / latest
 node_js:
-  - 4.2.3 # not sure why i used an old node.js - todo update to v6 / latest
+  - 4.2.3
+
+# only build master and all branches beginning with "beta"
+branches:
+  only:
+    - master
+    - beta*
 
 build:
   ci:
