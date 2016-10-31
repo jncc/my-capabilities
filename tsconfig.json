@@ -1,19 +1,17 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "outDir": "./tsc", // if ever accidentally built with tsc directly
-    "rootDir": ".",
-    "removeComments": true,
+    "outDir": "./built/",
     "sourceMap": true,
-    "strictNullChecks": true
-  },
-  "exclude": [
-    "node_modules"
-  ]
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "target": "es5",
+    "jsx": "react"
+    //"moduleResolution": "node",
+    // "noFallthroughCasesInSwitch": true,
+    // "noImplicitReturns": true,
+    // "noImplicitThis": true,
+    // "noUnusedLocals": true,
+    // "removeComments": true,
+    // "strictNullChecks": true
+  }
 }
