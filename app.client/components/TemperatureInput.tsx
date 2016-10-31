@@ -8,11 +8,17 @@ export class TemperatureInput extends React.Component<TemperatureInputProps, {}>
   }
 
   render() {
+    let label = `Temperature in ${this.props.scale}`;
     return (
-      <fieldset>
-        <legend>Enter temperature in {this.props.scale}:</legend>
-        <input value={this.props.value} onChange={this.handleChange.bind(this)} />
-      </fieldset>
+      <form className="form-inline">
+        <div className="form-group">
+          <label className="sr-only">{label}</label>
+          <div className="input-group">
+            <input type="text" className="form-control" value={this.props.value} onChange={this.handleChange.bind(this)} placeholder={label} />
+            <div className="input-group-addon">{this.props.scale}</div>
+          </div>
+        </div>
+      </form>
     );
   }
 }

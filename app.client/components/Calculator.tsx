@@ -29,9 +29,12 @@ export class Calculator extends React.Component<any, CalculatorState> {
 
     return (
       <div>
-        <h1>Blah</h1>
+        <h1>Temperature calculator</h1>
+        <div>This app tells you whether water would boil at the temperature you enter.</div>
+        <br />
         <TemperatureInput scale="Celsius" value={celsius} onChange={this.handleCelsiusChange.bind(this)} />
         <TemperatureInput scale="Fahrenheit" value={fahrenheit} onChange={this.handleFahrenheitChange.bind(this)} />
+        <br />
         <BoilingVerdict celsius={parseFloat(celsius)} />
       </div>
     );

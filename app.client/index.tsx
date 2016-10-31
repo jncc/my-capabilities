@@ -3,7 +3,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 
 import { Calculator } from "./components/Calculator";
-import "./main.scss";
+import "./styles/main.scss";
 
 ReactDOM.render(
   <Calculator />,

@@ -14,7 +14,7 @@ branches:
 build:
   ci:
     - npm install
-    - npm run build # todo: run tests too
+    - npm run build:prod # todo: run tests too
 
   post_ci:
     - ls -a

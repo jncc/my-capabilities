@@ -51,6 +51,9 @@ module.exports = {
     }),
     new CopyWebpackPlugin([
       { from: './app.client/images', to: 'images' }
+    ]),
+    new CopyWebpackPlugin([
+      { from: './app.client/styles/cosmo.bootstrap.min.css', to: 'styles' }
     ])
   ],
 

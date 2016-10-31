@@ -2,16 +2,15 @@
   "compilerOptions": {
     "outDir": "./built/",
     "sourceMap": true,
-    "noImplicitAny": true,
     "module": "commonjs",
     "target": "es5",
-    "jsx": "react"
-    //"moduleResolution": "node",
-    // "noFallthroughCasesInSwitch": true,
-    // "noImplicitReturns": true,
-    // "noImplicitThis": true,
-    // "noUnusedLocals": true,
-    // "removeComments": true,
-    // "strictNullChecks": true
+    "jsx": "react",
+    "noImplicitAny": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "removeComments": true,
+    "strictNullChecks": true
   }
 }
