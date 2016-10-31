@@ -7,4 +7,4 @@ COPY . /app
 WORKDIR /app
 RUN npm install
 EXPOSE 80
-ENTRYPOINT ["nodejs", "/app/.tmp/app.server/server.js"]
+ENTRYPOINT ["nodejs", "/app/built/app.server/server.js"]
