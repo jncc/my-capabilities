@@ -6,7 +6,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: {
-    app: './src/index.tsx',
+    app: './app.client/index.tsx',
     //vendor: ['react']
   },
 
@@ -15,8 +15,7 @@ module.exports = {
     filename: '[name].[hash].js'
   },
 
-  // todo: check this works
-  devtool: 'source-map',
+  devtool: 'source-map', // todo: check this works
 
   resolve: {
     extensions: ['', '.js', '.ts', '.tsx', 'html', 'css', 'scss'] // '' is for folders!
@@ -26,20 +25,18 @@ module.exports = {
     loaders: [
       { test: /\.tsx?$/, loader: "ts-loader" },
       { test: /\.html$/, loader: 'raw' },
-      { test: /\.css$/, loader: 'raw' }, // todo: remove
       { test: /\.scss$/, loader: ExtractTextPlugin.extract('css!sass') }
     ],
 
     preLoaders: [
-      // todo: investigate this
-      // all output '.js' files will have any sourcemaps re-processed by 'source-map-loader'
+      // todo: investigate this. all output '.js' files will have any sourcemaps re-processed by 'source-map-loader'
       { test: /\.js$/, loader: "source-map-loader" }
     ]
   },
 
   plugins: [
     new HtmlWebpackPlugin({
-      template: `./src/index.html`
+      template: `./app.client/index.html`
     }),
     // new webpack.optimize.CommonsChunkPlugin({
     //   name: 'vendor'
@@ -53,7 +50,7 @@ module.exports = {
       allChunks: true
     }),
     new CopyWebpackPlugin([
-      { from: './src/images', to: 'images' }
+      { from: './app.client/images', to: 'images' }
     ])
   ],
 
