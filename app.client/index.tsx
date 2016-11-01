@@ -2,10 +2,10 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import { Calculator } from "./components/Calculator";
+import { App } from "./components/App";
 import "./styles/main.scss";
 
 ReactDOM.render(
-  <Calculator />,
+  <App />,
   document.getElementById('app')
 );

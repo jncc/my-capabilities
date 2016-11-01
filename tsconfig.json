@@ -5,7 +5,7 @@
     "module": "commonjs",
     "target": "es5",
     "jsx": "react",
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
