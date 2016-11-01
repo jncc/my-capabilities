@@ -2,14 +2,14 @@
 import * as express from "express";
 
 import { getEnvironmentSettings } from "./settings";
-import { layers } from "./demo";
-import { getCapabilities } from "./capabilities";
+import { layers } from "./capabilities/demo";
+import { getCapabilities } from "./capabilities/capabilities";
 
 let app = express();
 let env = getEnvironmentSettings(app.settings.env);
 
 // handle http data requests
-app.get(`/xml`, (request, response) => {
+app.get(`/capabilities`, (request, response) => {
   response.set(`Content-Type`, `text/xml`);
   let xml = getCapabilities(layers);
   response.send(xml);

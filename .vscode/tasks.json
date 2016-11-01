@@ -1,20 +1,27 @@
 {
   "version": "0.1.0",
-  "command": "gulp",
+  "command": "npm",
   "isShellCommand": true,
-  "args": [""],
-  "showOutput": "always",
+  "suppressTaskName": true,
   "tasks": [
     {
-      "taskName": "clean"
+      // Build task, Ctrl+Shift+B
+      // "npm install --loglevel info"
+      "taskName": "install",
+      "args": ["install", "--loglevel", "info"]
     },
     {
-      "taskName": "build",
-      "isBuildCommand": true
-    },
-    {
+      // Test task, Ctrl+Shift+T
+      // "npm test"
       "taskName": "test",
-      "isTestCommand": true
+      "isTestCommand": true,
+      "args": ["test"]
+    },
+    {
+      // "npm run lint"
+      "taskName": "build",
+      "isBuildCommand": true,
+      "args": ["run", "build"]
     }
   ]
 }
