@@ -3,12 +3,20 @@ import * as React from "react";
 import * as ReactDOM from "react-dom"
 import * as L from "leaflet";
 
-export class Map extends React.Component<any, {}> {
+import { Scene } from "../../app.shared/Scene";
+
+interface MapProps {
+  scenes: Scene[];
+}
+
+export class Map extends React.Component<MapProps, {}> {
 
   map: L.Map;
+  layerGroup: L.LayerGroup; // a group for the rectangles
+
 
   componentDidMount() {
-    var map = this.map = L.map(ReactDOM.findDOMNode(this) as HTMLElement, {
+    let map = this.map = L.map(ReactDOM.findDOMNode(this) as HTMLElement, {
       minZoom: 2,
       maxZoom: 20,
       layers: [
@@ -20,6 +28,7 @@ export class Map extends React.Component<any, {}> {
     });
 
     map.on('click', this.onMapClick);
+    this.layerGroup = L.layerGroup([]).addTo(map);
     map.setView([54.50, -4.00], 5)
   }
 
@@ -27,6 +36,19 @@ export class Map extends React.Component<any, {}> {
   //   this.map.off('click', this.onMapClick);
   //   this.map = null;
   // }
+
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log("updated");
+
+    if (this.map) {
+      this.layerGroup.clearLayers();
+      this.props.scenes.forEach(s => {
+        let layer = L.geoJSON(s.polygon, style);
+        this.layerGroup.addLayer(layer);
+      });
+    }
+  }
 
   onMapClick() {
     console.log('clicked!');
@@ -37,3 +59,4 @@ export class Map extends React.Component<any, {}> {
   }
 }
 
+const style = { fillOpacity: 0.1, weight: 1, color: '#888' };

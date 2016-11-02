@@ -26,7 +26,7 @@ export class App extends React.Component<any, AppState> {
         <div className="container"  >
           <div className="row">
             <div className="col-md-5">
-              <Map />
+              <Map scenes={this.state.scenes} />
             </div>
             <div className="col-md-7">
               <h1>Mappificator</h1>
@@ -49,6 +49,9 @@ export class App extends React.Component<any, AppState> {
     setTimeout(() => NProgress.done(), 1000);
   }
 
+  updateMap() {
+
+  }
   gotData(scenes: any) {
     this.setState({ scenes: scenes });
   }

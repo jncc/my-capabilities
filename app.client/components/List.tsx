@@ -16,6 +16,7 @@ export function List(props: ListProps) {
         <td>{scene.name.substring(0, 20)}</td>
         <td>{scene.date}</td>
         <td><button className="btn btn-primary">Download</button></td>
+        <td><span></span></td>
       </tr>
     );
   });
@@ -25,7 +26,7 @@ export function List(props: ListProps) {
       <table className="table">
         <caption>Optional table caption.</caption>
         <thead>
-          <tr><th>#</th><th></th><th>Last Name</th><th>Username</th></tr>
+          <tr><th>#</th><th></th><th>Last Name</th><th>Username</th><th></th></tr>
         </thead>
         <tbody>
           {rows}
