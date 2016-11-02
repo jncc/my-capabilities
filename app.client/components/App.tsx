@@ -1,22 +1,21 @@
 
 import * as React from "react";
+import * as NProgress from "nprogress";
 
 import { Header } from "./Header";
 import { List } from "./List";
 import { Map } from "./Map";
-
-import * as NProgress from "nprogress";
-
+import { Scene } from "../../app.shared/Scene";
 
 interface AppState {
-  value: string;
+  scenes: Scene[];
 }
 
 export class App extends React.Component<any, AppState> {
 
   constructor(props: any) {
     super(props);
-    this.state = { value: '' };
+    this.state = { scenes: new Array() };
   }
 
   render() {
@@ -33,10 +32,8 @@ export class App extends React.Component<any, AppState> {
               <h1>Mappificator</h1>
               <div>This app is an example.</div>
               <br />
-              <List blah="foo" />
+              <List scenes={this.state.scenes} />
             </div>
-            <img src="images/owl.jpg" />
-            <br />
           </div>
         </div>
       </div>
@@ -48,19 +45,22 @@ export class App extends React.Component<any, AppState> {
     this.getData();
 
     NProgress.configure({ parent: "#progress-target" });
-    // NProgress.configure({ parent: 'header' });
     NProgress.start();
-    //setTimeout(() => NProgress.done(), 2000);
-    NProgress.done(true);
+    setTimeout(() => NProgress.done(), 1000);
+  }
+
+  gotData(scenes: any) {
+    this.setState({ scenes: scenes });
   }
 
   getData() {
     fetch('/layers')
       .then(res => res.json())
       .then(json => {
-        console.log('parsed json', json)
+        console.log('parsed json', json);
+        this.gotData(json);
       }).catch(ex => {
-        console.log('parsing failed', ex)
+        console.log('parsing failed', ex);
       });
   }
 }
