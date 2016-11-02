@@ -20,7 +20,7 @@ export class Map extends React.Component<any, {}> {
     });
 
     map.on('click', this.onMapClick);
-    map.setView([54.00, -4.00], 5)
+    map.setView([54.50, -4.00], 5)
   }
 
   // componentWillUnmount() {

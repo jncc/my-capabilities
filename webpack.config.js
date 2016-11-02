@@ -46,6 +46,11 @@ module.exports = {
         environment: JSON.stringify(process.env.APP_ENVIRONMENT || 'development')
       }
     }),
+    // polyfill for http fetch
+    // http://mts.io/2015/04/08/webpack-shims-polyfills/
+    new webpack.ProvidePlugin({
+      'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+    }),
     new ExtractTextPlugin('public/style.css', {
       allChunks: true
     }),
