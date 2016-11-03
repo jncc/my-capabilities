@@ -1,13 +1,19 @@
 
 import * as React from "react";
 import * as NProgress from "nprogress";
+// import * as queryString from "query-string";
 
 import { Header } from "./Header";
+import { Form } from "./Form";
 import { List } from "./List";
 import { Map } from "./Map";
+import { Debug } from "./Debug";
+import { Query, defaultQuery } from "./Query";
 import { Scene } from "../../app.shared/Scene";
 
+
 interface AppState {
+  query:  Query;
   scenes: Scene[];
 }
 
@@ -15,7 +21,7 @@ export class App extends React.Component<any, AppState> {
 
   constructor(props: any) {
     super(props);
-    this.state = { scenes: new Array() };
+    this.state = { query: defaultQuery(), scenes: new Array() };
   }
 
   render() {
@@ -29,9 +35,9 @@ export class App extends React.Component<any, AppState> {
               <Map scenes={this.state.scenes} />
             </div>
             <div className="col-md-7">
-              <h1>Mappificator</h1>
-              <div>This app is an example.</div>
+              <h1>Sentinel 2</h1>
               <br />
+              <Form query={this.state.query} onQueryChange={this.handleQueryChange.bind(this)} />
               <List scenes={this.state.scenes} />
             </div>
           </div>
@@ -40,8 +46,16 @@ export class App extends React.Component<any, AppState> {
     );
   }
 
+  handleQueryChange(query: Query) {
+    // update state.query
+    this.setState({ query: query, scenes: this.state.scenes });
+
+    this.getData();
+  }
+
   componentDidMount() {
 
+    console.log("app did mount");
     this.getData();
 
     NProgress.configure({ parent: "#progress-target" });
@@ -49,22 +63,29 @@ export class App extends React.Component<any, AppState> {
     setTimeout(() => NProgress.done(), 1000);
   }
 
-  updateMap() {
-
+  componentDidUpdate(prevProps, prevState) {
+    console.log(this.state.query);
   }
+
   gotData(scenes: any) {
-    this.setState({ scenes: scenes });
+    this.setState({ query: this.state.query, scenes: scenes });
   }
 
   getData() {
-    fetch('/layers')
+    NProgress.start();
+    // todo unparse properly!
+    //queryString.stringify(this.state.query as any))
+    let bbox = `bbox=[${this.state.query.bbox[0]},${this.state.query.bbox[1]},${this.state.query.bbox[2]},${this.state.query.bbox[3]}]`;
+    let start = `start=` + this.state.query.start;
+    let end = `end=` + this.state.query.end;
+    fetch('/layers?' + bbox + '&' + start + '&' + end)
       .then(res => res.json())
       .then(json => {
-        console.log('parsed json', json);
         this.gotData(json);
       }).catch(ex => {
         console.log('parsing failed', ex);
-      });
+      })
+      .then(() => { NProgress.done() });
   }
 }
 

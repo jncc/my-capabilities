@@ -1,9 +1,9 @@
 
 
-import { ILayer } from "./layer";
+import { Layer } from "./layer";
 import { template } from "./template";
 
-export function getCapabilities(layers: ILayer[]): string {
+export function getCapabilities(layers: Layer[]): string {
 
   // make the xml for the layers
   let layersXml = layers
@@ -14,7 +14,7 @@ export function getCapabilities(layers: ILayer[]): string {
   return template.replace("{{{layers}}}", layersXml);;
 }
 
-export function makeLayerXml(layer: ILayer): string {
+export function makeLayerXml(layer: Layer): string {
 
   let xml = `
       <Layer queryable="1" opaque="0">

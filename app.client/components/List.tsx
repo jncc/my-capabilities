@@ -24,9 +24,8 @@ export function List(props: ListProps) {
   return (
     <div className="list">
       <table className="table">
-        <caption>Optional table caption.</caption>
         <thead>
-          <tr><th>#</th><th></th><th>Last Name</th><th>Username</th><th></th></tr>
+          <tr><th>#</th><th>File</th><th>Date</th><th></th><th></th></tr>
         </thead>
         <tbody>
           {rows}

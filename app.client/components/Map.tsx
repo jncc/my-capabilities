@@ -39,7 +39,7 @@ export class Map extends React.Component<MapProps, {}> {
 
 
   componentDidUpdate(prevProps, prevState) {
-    console.log("updated");
+    console.log("map component updated");
 
     if (this.map) {
       this.layerGroup.clearLayers();

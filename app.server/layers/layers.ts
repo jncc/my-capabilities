@@ -5,6 +5,7 @@ import { Moment } from 'moment';
 
 import { SCENES } from "./scenes";
 
+
 class Query {
   bbox:  [number, number, number, number]
   start: Moment
@@ -12,14 +13,18 @@ class Query {
   type:  "raw" | "ndwi" | "ndvi"
 }
 
+
 export function handleLayers(query: any) {
 
   let q = parseQuery(query);
-
   let boundingBox = turf.bboxPolygon(q.bbox);
 
   let results = SCENES
-    .filter(s => turf.intersect(s.polygon, boundingBox));
+    .filter(s => turf.intersect(s.polygon, boundingBox))
+    .filter(s => {
+      let date = moment(s.date);
+      return date.isAfter(q.start) && date.isSameOrBefore(q.end)}
+    );
 
   return results;
 }

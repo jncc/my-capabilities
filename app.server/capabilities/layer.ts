@@ -1,5 +1,5 @@
 
-export interface ILayer {
+export interface Layer {
   // '@queryable': number;
   // '@opaque': number;
   Name: string;

@@ -1,4 +1,7 @@
 
+// always have a scroll bar to avoid layout jumps
+html { overflow-y: scroll; }
+
 body {
   font-family: 'Raleway', sans-serif;
   min-height: 100px;
@@ -19,6 +22,9 @@ h1 {
   height: 600px;
 }
 
+.form {
+  margin-bottom: 30px;
+}
 
 
 
