@@ -1,5 +1,6 @@
 
-import * as turf from "turf";
+// import * as turf from "turf";
+let turf = require("turf");
 import * as moment from 'moment';
 import { Moment } from 'moment';
 

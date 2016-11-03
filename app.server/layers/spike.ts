@@ -1,4 +1,6 @@
 
+let turf = require("turf");
+
 function spike() {
 
   let northernBbox = turf.bboxPolygon([-5, 52, 2.021, 57]);

@@ -34,7 +34,6 @@
     "@types/query-string": "3.0.29",
     "@types/react": "0.14.44",
     "@types/react-dom": "0.14.18",
-    "@types/turf": "3.5.32",
     "concurrently": "3.1.0",
     "copy-webpack-plugin": "4.0.0",
     "css-loader": "0.25.0",
