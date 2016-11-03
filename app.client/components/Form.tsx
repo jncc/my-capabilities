@@ -20,6 +20,11 @@ export function Form(props: FormProps) {
     props.onQueryChange(props.query);
   }
 
+  let bboxChanged = (e: any) => {
+    props.query.bbox = JSON.parse(e.target.value);
+    props.onQueryChange(props.query);
+  }
+
   return (
     <div className="form-inline form">
       <div className="form-group">
@@ -27,6 +32,9 @@ export function Form(props: FormProps) {
       </div>
       <div className="form-group">
         <input type="text" value={props.query.end} onChange={endChanged} className="form-control" placeholder="End date"></input>
+      </div>
+      <div className="form-group">
+        <input type="text" value={JSON.stringify(props.query.bbox)} onChange={bboxChanged} className="form-control" placeholder="Bbox"></input>
       </div>
       <button className="btn btn-danger">Update</button>
     </div>

@@ -34,7 +34,7 @@ export class App extends React.Component<any, AppState> {
               <Map scenes={this.state.scenes} />
             </div>
             <div className="col-md-7">
-              <h1>Sentinel 2</h1>
+              <h1>Sentinel / Node</h1>
               <br />
               <Form query={this.state.query} onQueryChange={this.handleQueryChange.bind(this)} />
               <List scenes={this.state.scenes} />

@@ -24,6 +24,9 @@ h1 {
 
 .form {
   margin-bottom: 30px;
+  .form-control {
+    width: 140px;
+  }
 }
 
 
@@ -45,7 +48,7 @@ h1 {
   left: 0;
 
   width: 100%;
-  height: 2px;
+  height: 40px;
 }
 
 /* Fancy blur effect */

@@ -30,6 +30,9 @@ export class Map extends React.Component<MapProps, {}> {
     map.on('click', this.onMapClick);
     this.layerGroup = L.layerGroup([]).addTo(map);
     map.setView([54.50, -4.00], 5)
+
+    // add the bbox
+    L.rectangle([[53, -8], [57, 0]], { fillOpacity: 0.1 }).addTo(this.map);
   }
 
   // componentWillUnmount() {
@@ -43,6 +46,7 @@ export class Map extends React.Component<MapProps, {}> {
 
     if (this.map) {
       this.layerGroup.clearLayers();
+      // add the scenes
       this.props.scenes.forEach(s => {
         let layer = L.geoJSON(s.polygon, style);
         this.layerGroup.addLayer(layer);

@@ -15,7 +15,7 @@ export class Header extends React.Component<any, {}> {
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
             </button>
-            <a className="navbar-brand" href="#">Node</a>
+            <a className="navbar-brand" href="#"><img src="/images/React.js_logo.svg.png" height={25} width={25} /> &nbsp;</a>
           </div>
           <div id="navbar" className="navbar-collapse collapse">
             <ul className="nav navbar-nav">

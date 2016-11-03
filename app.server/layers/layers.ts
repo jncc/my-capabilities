@@ -59,7 +59,7 @@ function parseQuery(o: any): Query {
     }
   }
   else {
-    q.end = moment(new Date(2016, 4, 10));
+    q.end = moment(new Date(2016, 4, 3));
   }
 
   if (o.type) {
@@ -84,5 +84,5 @@ function parseQuery(o: any): Query {
 // let result = handleLayers(x);
 // console.log(result);
 
-let query = parseQuery({bbox: '[-5, 55, 2, 57]', type: 'raw', start: '2016-04-01', end: '2016-04-02'});
-console.log(query);
+// let query = parseQuery({bbox: '[-5, 55, 2, 57]', type: 'raw', start: '2016-04-01', end: '2016-04-02'});
+// console.log(query);
