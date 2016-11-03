@@ -7,7 +7,6 @@ import { Header } from "./Header";
 import { Form } from "./Form";
 import { List } from "./List";
 import { Map } from "./Map";
-import { Debug } from "./Debug";
 import { Query, defaultQuery } from "./Query";
 import { Scene } from "../../app.shared/Scene";
 
