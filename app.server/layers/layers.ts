@@ -1,16 +1,13 @@
 
-// import * as turf from "turf";
 let turf = require("turf");
-import * as moment from 'moment';
-import { Moment } from 'moment';
 
 import { SCENES } from "./scenes";
 
 
 class Query {
   bbox:  [number, number, number, number]
-  start: Moment
-  end:   Moment
+  start: Date
+  end:   Date
   type:  "raw" | "ndwi" | "ndvi"
 }
 
@@ -23,9 +20,9 @@ export function handleLayers(query: any) {
   let results = SCENES
     .filter(s => turf.intersect(s.polygon, boundingBox))
     .filter(s => {
-      let date = moment(s.date);
-      return date.isAfter(q.start) && date.isSameOrBefore(q.end)}
-    );
+      let date = new Date(s.date);
+      return date > q.start && date <= q.end;
+    });
 
   return results;
 }
@@ -43,23 +40,23 @@ function parseQuery(o: any): Query {
   }
 
   if (o.start) {
-    let start = moment(o.start);
-    if (start.isValid) {
+    let start = new Date(o.start);
+    if (start) {
       q.start = start;
     }
   }
   else {
-    q.start = moment(new Date(2016, 4, 1));
+    q.start = new Date(2016, 4, 1);
   }
 
   if (o.end) {
-    let end = moment(o.end);
-    if (end.isValid) {
+    let end = new Date(o.end);
+    if (end) {
       q.end = end;
     }
   }
   else {
-    q.end = moment(new Date(2016, 4, 3));
+    q.end = new Date(2016, 4, 3);
   }
 
   if (o.type) {

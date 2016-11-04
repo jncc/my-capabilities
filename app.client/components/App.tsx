@@ -1,7 +1,6 @@
 
 import * as React from "react";
 import * as NProgress from "nprogress";
-// import * as queryString from "query-string";
 
 import { Header } from "./Header";
 import { Form } from "./Form";
@@ -54,7 +53,6 @@ export class App extends React.Component<any, AppState> {
 
   componentDidMount() {
 
-    console.log("app did mount");
     this.getData();
 
     NProgress.configure({ parent: "#progress-target" });

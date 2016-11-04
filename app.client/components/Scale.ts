@@ -1,2 +1,0 @@
-
-type Scale = 'Celsius' | 'Fahrenheit'
