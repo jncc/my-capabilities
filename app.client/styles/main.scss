@@ -29,9 +29,12 @@ h1 {
   display: flex;
   width: 100%;
   //justify-content: space-between;
+  background-color: #ddd;
+  border-radius: 4px;
+  padding: 2px 2px;
   .item-left {
     flex: 0;
-    background-color: lightgreen;
+    padding: 0 4px;
     > div {
       display: flex;
       align-items: center;
@@ -47,12 +50,19 @@ h1 {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    background-color: lightpink;
     margin: 0 4px 0 4px;
   }
   .item-right {
     flex: 0;
-    background-color: lightseagreen;
+    padding: 0 4px;
+    > div {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      > div {
+        flex:1;
+      }
+    }
   }
 
   margin-bottom: 4px;

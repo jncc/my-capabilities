@@ -25,7 +25,9 @@ export function List(props: ListProps) {
           <div className="item-main-cell">{moment(scene.date).format("D MMM YYYY")}</div>
         </div>
         <div className="item-right">
-          X
+          <div>
+            <div>X</div>
+          </div>
         </div>
       </div>
     );
@@ -41,9 +43,8 @@ export function List(props: ListProps) {
 }
 
 let flipMoveAnimationProps = {
-  duration: 150,
-  enterAnimation: "accordianVertical",
+  duration: 200,
+  enterAnimation: "fade",
   leaveAnimation: "accordianVertical",
-  // staggerDurationBy: 6,
-  // staggerDelayBy: 8,
+  staggerDurationBy: 25,
 };
