@@ -1,6 +1,5 @@
 
 import * as React from "react";
-import * as NProgress from "nprogress";
 
 import { Header } from "./Header";
 import { Form } from "./Form";
@@ -54,10 +53,6 @@ export class App extends React.Component<any, AppState> {
   componentDidMount() {
 
     this.getData();
-
-    NProgress.configure({ parent: "#progress-target" });
-    NProgress.start();
-    setTimeout(() => NProgress.done(), 1000);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -69,7 +64,7 @@ export class App extends React.Component<any, AppState> {
   }
 
   getData() {
-    NProgress.start();
+
     // todo unparse properly!
     //queryString.stringify(this.state.query as any))
     let bbox = `bbox=[${this.state.query.bbox[0]},${this.state.query.bbox[1]},${this.state.query.bbox[2]},${this.state.query.bbox[3]}]`;
@@ -81,8 +76,7 @@ export class App extends React.Component<any, AppState> {
         this.gotData(json);
       }).catch(ex => {
         console.log('parsing failed', ex);
-      })
-      .then(() => { NProgress.done() });
+      });
   }
 }
 

@@ -14,15 +14,18 @@
     "test:watch": "karma start"
   },
   "dependencies": {
+    "@types/moment": "2.13.0",
     "dotenv": "2.0.0",
     "exports-loader": "0.6.3",
     "express": "4.14.0",
     "imports-loader": "0.6.5",
     "leaflet": "1.0.1",
+    "moment": "2.17.0",
     "nprogress": "0.2.0",
     "query-string": "4.2.3",
     "react": "15.3.2",
     "react-dom": "15.3.2",
+    "react-flip-move": "2.7.0-beta1",
     "turf": "3.0.14",
     "whatwg-fetch": "1.0.0"
   },
@@ -47,7 +50,7 @@
     "source-map-loader": "0.1.5",
     "style-loader": "0.13.1",
     "ts-loader": "0.9.5",
-    "typescript": "2.0.6",
+    "typescript": "2.1.1",
     "webpack": "1.13.3",
     "webpack-dev-server": "1.16.2"
   },
