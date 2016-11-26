@@ -5,13 +5,14 @@ import { Header } from "./Header";
 import { Form } from "./Form";
 import { List } from "./List";
 import { Map } from "./Map";
+import { Summary } from "./Summary";
 import { Query, defaultQuery } from "./Query";
 import { Scene } from "../../app.shared/Scene";
 
 
 interface AppState {
-  query:  Query;
-  scenes: Scene[];
+  query:  Query;   // the current query
+  scenes: Scene[]; // the most recently loaded query results (ordering corresponds to map z-index)
 }
 
 export class App extends React.Component<any, AppState> {
@@ -26,7 +27,7 @@ export class App extends React.Component<any, AppState> {
     return (
       <div>
         <Header />
-        <div className="container"  >
+        <div className="container-fluid"  >
           <div className="row">
             <div className="col-md-5">
               <Map scenes={this.state.scenes} />
@@ -39,8 +40,13 @@ export class App extends React.Component<any, AppState> {
             </div>
           </div>
         </div>
+              <Summary scenes={this.state.scenes} getLinkClicked={this.handleGetLinkClicked} />
       </div>
     );
+  }
+
+  handleGetLinkClicked() {
+
   }
 
   handleQueryChange(query: Query) {
