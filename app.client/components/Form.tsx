@@ -5,24 +5,24 @@ import { Query } from "./Query";
 
 interface FormProps {
   query: Query;
-  onQueryChange: (query: Query) => void;
+  queryChanged: (query: Query) => void;
 }
 
 export function Form(props: FormProps) {
 
   let startChanged = (e: any) => {
     props.query.start = e.target.value;
-    props.onQueryChange(props.query);
+    props.queryChanged(props.query);
   }
 
   let endChanged = (e: any) => {
     props.query.end = e.target.value;
-    props.onQueryChange(props.query);
+    props.queryChanged(props.query);
   }
 
   let bboxChanged = (e: any) => {
     props.query.bbox = JSON.parse(e.target.value);
-    props.onQueryChange(props.query);
+    props.queryChanged(props.query);
   }
 
   return (

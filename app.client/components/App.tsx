@@ -1,11 +1,7 @@
 
 import * as React from "react";
 
-import { Header } from "./Header";
-import { Form } from "./Form";
-import { List } from "./List";
-import { Map } from "./Map";
-import { Summary } from "./Summary";
+import { Main } from "./Main";
 import { Query, defaultQuery } from "./Query";
 import { Scene } from "../../app.shared/Scene";
 
@@ -23,30 +19,7 @@ export class App extends React.Component<any, AppState> {
   }
 
   render() {
-
-    return (
-      <div>
-        <Header />
-        <div className="container-fluid"  >
-          <div className="row">
-            <div className="col-md-5">
-              <Map scenes={this.state.scenes} />
-            </div>
-            <div className="col-md-7">
-              <h1>Sentinel / Node</h1>
-              <br />
-              <Form query={this.state.query} onQueryChange={this.handleQueryChange.bind(this)} />
-              <List scenes={this.state.scenes} />
-            </div>
-          </div>
-        </div>
-              <Summary scenes={this.state.scenes} getLinkClicked={this.handleGetLinkClicked} />
-      </div>
-    );
-  }
-
-  handleGetLinkClicked() {
-
+    return ( <Main {...this.state} queryChanged={this.handleQueryChange.bind(this)} /> );
   }
 
   handleQueryChange(query: Query) {
@@ -57,7 +30,6 @@ export class App extends React.Component<any, AppState> {
   }
 
   componentDidMount() {
-
     this.getData();
   }
 
